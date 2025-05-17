@@ -29,7 +29,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <div
         className={styles.cardMedia}
         style={{
-          backgroundImage: `url(${event.cover || "/placeholder-event.jpg"})`,
+          backgroundImage: `url(${event.header.images[0].src || "/placeholder-event.jpg"})`,
         }}
       />
       <CardContent className={styles.cardContent}>
