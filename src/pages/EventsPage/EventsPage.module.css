@@ -1,0 +1,27 @@
+.eventsPageContainer {
+  padding: 24px;
+}
+
+.pageHeader {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 0 20px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.pageDescription {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
