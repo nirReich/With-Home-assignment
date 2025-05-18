@@ -18,11 +18,11 @@ const EventsPage: React.FC = () => {
   return (
     <div className={styles.eventsPageContainer}>
       <div className={styles.pageHeader}>
-        <Typography variant="h1" className={styles.pageTitle}>
+        <Typography variant="h2" className={styles.pageTitle}>
           Upcoming Events
         </Typography>
         <Typography variant="body1" className={styles.pageDescription}>
-          Browse through our collection of upcoming events. Click on any event to learn more.
+          Browse through our collection of upcoming events.
         </Typography>
       </div>
 
