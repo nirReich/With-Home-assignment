@@ -109,8 +109,8 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             {/* @ts-expect-error:next-line */}
             <FontAwesomeIcon icon={faClock} className={styles.icon} />
             <span>
-              {getHourFromDate(event.activityBlock.startDate)}-
-              {getHourFromDate(event.activityBlock.endDate)}
+              {getHourFromDate(event.activityBlock.startDate)}
+              {event.activityBlock.endDate && "-" + (getHourFromDate(event.activityBlock.endDate))}
             </span>
           </div>
           <div>
