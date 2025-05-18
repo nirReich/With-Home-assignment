@@ -25,9 +25,7 @@ const useInfiniteEvents = (
       setLoading(true);
       const response = await fetchEvents(page, initialPageSize);
       const responseEvents = response.data.records;
-      console.log(response);
       
-
       setEvents((prevEvents) => [...prevEvents, ...responseEvents]);
       setTotalPages(response.data.pagination.totalPages);
       setHasMore(page < Math.min(response.data.pagination.totalPages, maxPages));
@@ -35,7 +33,7 @@ const useInfiniteEvents = (
       setError(null);
     } catch (err) {
       setError("Failed to fetch events. Please try again later.");
-      console.log(err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
