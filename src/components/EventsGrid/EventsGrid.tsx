@@ -25,7 +25,7 @@ const EventsGrid: React.FC<EventsGridProps> = ({
 }) => {
   return (
     <>
-    {/* @ts-expect-error:next-line */}
+      {/* @ts-expect-error:next-line */}
       <InfiniteScroll
         dataLength={events.length}
         next={loadMore}
@@ -45,7 +45,10 @@ const EventsGrid: React.FC<EventsGridProps> = ({
       >
         <div className={styles.eventsGrid}>
           {events.map((event) => (
-            <EventCard key={`${event.id}_${crypto.randomUUID()}`} event={event} />
+            <EventCard
+              key={`${event.id}_${crypto.randomUUID()}`}
+              event={event}
+            />
           ))}
 
           {error && (

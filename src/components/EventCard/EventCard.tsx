@@ -16,24 +16,29 @@ interface EventCardProps {
   event: Event;
 }
 
-
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const formatDate = (
     dateString: string,
-    dateOptions: Partial<{
-      weekday: "long";
-      year: "numeric";
-      month: "long";
-      day: "numeric";
-      hour: "numeric";
-      minute: "numeric";
-    }>
+    dateOptions: Record<string, string>
   ) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("he-IL", {
-      ...dateOptions,
-    });
+    return date.toLocaleDateString("he-IL", dateOptions);
   };
+
+  const getHourFromDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}`;
+  };
+
+  const isEventFull: boolean =
+    event.people.numbers.participantsCount ===
+      event.people.numbers.maxParticipants &&
+    event.people.numbers.participantsCount !== 0;
 
   return (
     <Card className={styles.eventCard}>
@@ -45,13 +50,19 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           })`,
         }}
       >
-        {event.badges?.groupExpiredText && <div className={styles.badgesBox}>
-          {event.badges.groupExpiredText}
-        </div>}
-        <div className={styles.peopleCounter}>
+        {event.badges?.groupExpiredText && (
+          <div className={styles.badgesBox}>
+            {event.badges.groupExpiredText}
+          </div>
+        )}
+        <div
+          className={`${styles.peopleCounter} ${
+            isEventFull ? styles.eventFull : styles.notEventFull
+          }`}
+        >
           <span>
-            {event.people.numbers.participantsCount || 0} /
-            {event.people.numbers.maxParticipants || 0} 
+            +{event.people.numbers.participantsCount || 0} /
+            {event.people.numbers.maxParticipants || 0}
           </span>
         </div>
       </div>
@@ -59,8 +70,32 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <CardContent className={styles.cardContent}>
         <Typography variant="h6" component="h2" className={styles.eventTitle}>
           {event.name}
-          <FlipCardDate month={"aug"} day={"18"}/>
         </Typography>
+        {event.activityBlock.startDate && (
+          <div className={styles.eventDatesBox}>
+            <FlipCardDate
+              month={formatDate(event.activityBlock.startDate, {
+                month: "short",
+              })}
+              day={formatDate(event.activityBlock.startDate, {
+                day: "numeric",
+              })}
+            />
+            {event?.activityBlock?.endDate && (
+              <>
+                <span>עד</span>
+                <FlipCardDate
+                  month={formatDate(event.activityBlock.endDate, {
+                    month: "short",
+                  })}
+                  day={formatDate(event.activityBlock.endDate, {
+                    day: "numeric",
+                  })}
+                />
+              </>
+            )}
+          </div>
+        )}
 
         <div className={styles.eventMeta}>
           <div>
@@ -74,10 +109,8 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             {/* @ts-expect-error:next-line */}
             <FontAwesomeIcon icon={faClock} className={styles.icon} />
             <span>
-              {formatDate(event.activityBlock.startDate, {
-                hour: "numeric",
-                minute: "numeric",
-              })}
+              {getHourFromDate(event.activityBlock.startDate)}-
+              {getHourFromDate(event.activityBlock.endDate)}
             </span>
           </div>
           <div>
@@ -90,7 +123,9 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             <div>
               {/* @ts-expect-error:next-line */}
               <FontAwesomeIcon icon={faMapMarkerAlt} className={styles.icon} />
-              <span className={styles.locationBox}>{event.activityBlock.location.text}</span>
+              <span className={styles.locationBox}>
+                {event.activityBlock.location.text}
+              </span>
             </div>
           )}
         </div>
