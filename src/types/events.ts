@@ -2,11 +2,17 @@ export interface Event {
   id: number;
   name: string;
   header: { images: { type: string; src: string }[] };
-  activityBlock: { location: { text: string; type: string; raw: string },startDate:string };
-  leader:{name:string,avatar:string};
-  badges:{customBadge:string};
-  people:{title:string,numbers:{maxParticipants:number,participantsCount:number|null}}
-  paymentText:string;
+  activityBlock: {
+    location: { text: string; type: string; raw: string };
+    startDate: string;
+  };
+  leader: { name: string; avatar: string };
+  badges: { customBadge: string; groupExpiredText: string };
+  people: {
+    title: string;
+    numbers: { maxParticipants: number; participantsCount: number | null };
+  };
+  paymentText: string;
   description: string;
   cover?: string;
   startTime: string;
@@ -22,8 +28,15 @@ export interface Event {
   };
 }
 
+interface Pagination {
+    totalResults: number;
+    totalPages: number;
+    pageSize: number;
+    currentPage: number;
+}
+
 export interface EventsResponse {
-  data: Event[];
+  data: {pagination:Pagination, records:Event[], };
   meta: {
     totalPages: number;
     currentPage: number;
