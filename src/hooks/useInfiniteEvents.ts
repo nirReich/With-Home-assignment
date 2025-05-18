@@ -24,7 +24,6 @@ const useInfiniteEvents = (
     try {
       setLoading(true);
       const response = await fetchEvents(page, initialPageSize);
-      // @ts-expect-error:next-line
       const responseEvents = response.data.records;
       console.log(response);
       
