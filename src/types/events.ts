@@ -1,13 +1,18 @@
 export interface Event {
-  id: string;
+  id: number;
   name: string;
+  header: { images: { type: string; src: string }[] };
+  activityBlock: { location: { text: string; type: string; raw: string },startDate:string };
+  leader:{name:string,avatar:string};
+  badges:{customBadge:string};
+  people:{title:string,numbers:{maxParticipants:number,participantsCount:number|null}}
+  paymentText:string;
   description: string;
   cover?: string;
   startTime: string;
   endTime: string;
   isPrivate: boolean;
   closed: boolean;
-  location?: string;
   maxParticipants?: number;
   participantsCount: number;
   creator?: {
