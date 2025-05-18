@@ -5,6 +5,7 @@ export interface Event {
   activityBlock: {
     location: { text: string; type: string; raw: string };
     startDate: string;
+    endDate: string;
   };
   leader: { name: string; avatar: string };
   badges: { customBadge: string; groupExpiredText: string };
@@ -29,14 +30,14 @@ export interface Event {
 }
 
 interface Pagination {
-    totalResults: number;
-    totalPages: number;
-    pageSize: number;
-    currentPage: number;
+  totalResults: number;
+  totalPages: number;
+  pageSize: number;
+  currentPage: number;
 }
 
 export interface EventsResponse {
-  data: {pagination:Pagination, records:Event[], };
+  data: { pagination: Pagination; records: Event[] };
   meta: {
     totalPages: number;
     currentPage: number;
