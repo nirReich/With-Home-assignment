@@ -11,29 +11,13 @@ import {
 import type { Event } from "../../types/events";
 import styles from "./EventCard.module.css";
 import FlipCardDate from "../DateBox/DateBox";
+import { formatDate, getHourFromDate } from "../../utils/dataUtils";
 
 interface EventCardProps {
   event: Event;
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
-  const formatDate = (
-    dateString: string,
-    dateOptions: Record<string, string>
-  ) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("he-IL", dateOptions);
-  };
-
-  const getHourFromDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-      2,
-      "0"
-    )}`;
-  };
 
   const isEventFull: boolean =
     event.people.numbers.participantsCount ===
