@@ -46,7 +46,7 @@ const EventsGrid: React.FC<EventsGridProps> = ({
         <div className={styles.eventsGrid}>
           {events.map((event) => (
             <EventCard
-              key={`${event.id}_${crypto.randomUUID()}`}
+              key={`${event.uniqId}}`}
               event={event}
             />
           ))}

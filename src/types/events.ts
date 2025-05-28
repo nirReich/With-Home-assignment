@@ -1,5 +1,6 @@
 export interface Event {
   id: number;
+  uniqId: string;
   name: string;
   header: { images: { type: string; src: string }[] };
   activityBlock: {

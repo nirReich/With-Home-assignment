@@ -24,11 +24,17 @@ const useInfiniteEvents = (
     try {
       setLoading(true);
       const response = await fetchEvents(page, initialPageSize);
-      const responseEvents = response.data.records;
-      
+
+      const responseEvents = response.data.records.map((event) => {
+        event.uniqId = `${event.id}_${crypto.randomUUID()}`;
+        return event;
+      });
+
       setEvents((prevEvents) => [...prevEvents, ...responseEvents]);
       setTotalPages(response.data.pagination.totalPages);
-      setHasMore(page < Math.min(response.data.pagination.totalPages, maxPages));
+      setHasMore(
+        page < Math.min(response.data.pagination.totalPages, maxPages)
+      );
       setPage((prevPage) => prevPage + 1);
       setError(null);
     } catch (err) {
